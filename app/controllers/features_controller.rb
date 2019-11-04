@@ -6,6 +6,6 @@ class FeaturesController < ApplicationController
 
   def show
     feature = Feature.find(params[:id])
-    render json: feature
+    render json: feature.to_json(include: [:datapoints])
   end
 end
