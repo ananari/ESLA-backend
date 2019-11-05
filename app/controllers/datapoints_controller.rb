@@ -19,6 +19,11 @@ class DatapointsController < ApplicationController
     end 
   end
 
+  def for_language
+    datapoints = Datapoint.all.select {|dp| "#{dp.language_id}" == params[:id]}
+    render json: datapoints.to_json(include: [:feature])
+  end
+
   private
 
   def datapoint_params
