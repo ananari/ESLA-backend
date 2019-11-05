@@ -6,4 +6,5 @@ class Datapoint < ApplicationRecord
   validates :language_id, presence: true
   validates :feature_id, presence: true
   validates :user_id, presence: true
+  validates_uniqueness_of :language_id, :scope => [:feature_id]
 end
