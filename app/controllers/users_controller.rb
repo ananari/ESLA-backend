@@ -4,9 +4,14 @@ class UsersController < ApplicationController
     if @user.valid?
       @token = encode_token(user_id: @user.id)
       render json: { user: @user, jwt: @token }, status: :created
+      UserMailer.with(user: @user).welcome_email.deliver_later
     else
       render json: { error: 'failed to create user' }, status: :not_acceptable
     end
+  end
+
+  def test
+    render json: {ip: request.env['REMOTE_ADDR']}
   end
  
   private

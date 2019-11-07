@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   get '/features/:id/values', to: "features#values"
   get '/json', to: "test#json"
   get '/languages/:id/geojson', to: "languages#geojson"
+  get '/mailtest', to: "users#test"
   post '/login', to: "auth#create"
 end
