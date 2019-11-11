@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+  def show
+    user = User.find(params[:id])
+    render json: user.to_json(except: :password_digest)
+  end
+
   def create
     @user = User.create(user_params)
     if @user.valid?
@@ -7,6 +12,17 @@ class UsersController < ApplicationController
       UserMailer.with(user: @user).welcome_email.deliver_later
     else
       render json: { error: 'failed to create user' }, status: :not_acceptable
+    end
+  end
+
+  def update
+    @user = User.find(params[:id])
+    @user.update(user_params)
+    if @user.valid?
+      UserMailer.with(user: @user).update_email.deliver_later
+      render json: @user, status: :accepted
+    else
+      render json: {error: "failed to update user"}, status: :not_acceptable
     end
   end
 

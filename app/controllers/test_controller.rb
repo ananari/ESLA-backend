@@ -1,6 +1,6 @@
 class TestController < ApplicationController
   def test
-    render json: {yay: "you made it!", hooray: "we're here!"}
+    render json: {yay: "you made it!", hooray: "we're here!", "but where's here?" => request.remote_ip}
   end
 
   def json
