@@ -1,6 +1,6 @@
 class TestController < ApplicationController
   def test
-    render json: {yay: "you made it!", hooray: "we're here!", "but where's here?" => request.remote_ip, secret: ENV['SECRET'], gmail: ENV['GMAIL']}
+    render json: {yay: "you made it!", hooray: "we're here!", "but where's here?" => request.remote_ip}
   end
 
   def json
