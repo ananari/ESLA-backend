@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :datapoints
   resources :features
   resources :languages
+  resources :auth, only: [:index]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   get '/', to: "test#test"
   get '/datapoints/for_feature/:id', to: "datapoints#for_feature"
