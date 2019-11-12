@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authorized, only: [:update, :update_password]
   def show
     user = User.find(params[:id])
     render json: user.to_json(except: :password_digest)
@@ -17,22 +18,34 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    @email = @user.email
     @user.update(user_params)
     if @user.valid?
-      UserMailer.with(user: @user).update_email.deliver_later
+      UserMailer.with(user: @user, email: @email).update_email.deliver_later
       render json: @user, status: :accepted
     else
       render json: {error: "failed to update user"}, status: :not_acceptable
     end
   end
 
-  def test
-    render json: {ip: request.env['REMOTE_ADDR']}
+  def update_password
+    @user = User.find(params[:id])
+    if @user.authenticate(update_password_params[:password])
+      @user.update(password: update_password_params[:new_password], password_confirmation: update_password_params[:new_password_confirmation])
+      render json: @user, status: :accepted
+    else
+      render json: {error: "failed to change password"}, status: :not_acceptable
+    end
+
   end
- 
+
   private
   def user_params
     params.permit(:username, :password, :password_confirmation, :email, :affiliation, :age)
+  end
+
+  def update_password_params
+    params.permit(:password, :new_password, :new_password_confirmation)
   end
 end
 

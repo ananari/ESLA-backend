@@ -6,6 +6,7 @@ class UserMailer < ApplicationMailer
 
   def update_email
     @user = params[:user]
-    mail(to: @user.email, subject: 'Your information has been updated')
+    @email = params[:email]
+    mail(to: @email, subject: 'Your information has been updated')
   end
 end
