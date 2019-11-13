@@ -43,32 +43,13 @@ class DatapointsController < ApplicationController
       valhash[colour] = dp.value
       language = Language.find(dp.language_id)
       {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [language.longitude, language.latitude]
-        },
-        properties: {
-          title: language.name,
-          icon: colour
-        }
+        latitude: language.latitude,
+        longitude: language.longitude,
+        title: language.name,
+        icon: colour
       }
     end
-    render json: {
-        id: "points",
-        type: "symbol",
-        source: {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: geopoints
-          }
-        },
-        layout: {
-          "icon-image" => "{icon}"
-        },
-        values: valhash
-    }
+    render json: {features: geopoints, values: valhash}
     
   end
 
