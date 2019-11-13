@@ -16,6 +16,7 @@ class AuthController < ApplicationController
 
   def for_user
     render json: {auths: Auth.for_user(params[:id])}
+  end
   
   private
   

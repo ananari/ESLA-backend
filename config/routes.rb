@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get '/json', to: "test#json"
   get '/languages/:id/geojson', to: "languages#geojson"
   get '/mailtest', to: "users#test"
+  get '/auth/for_user/:id', to: "auth#for_user"
   post '/login', to: "auth#create"
   patch '/users/:id/update_password', to: "users#update_password"
 end
