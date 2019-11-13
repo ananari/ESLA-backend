@@ -13,6 +13,9 @@ class AuthController < ApplicationController
       render json: { error: 'Invalid username or password' }, status: :unauthorized
     end
   end
+
+  def for_user
+    render json: {auths: Auth.for_user(params[:id])}
   
   private
   
