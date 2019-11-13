@@ -15,7 +15,7 @@ class AuthController < ApplicationController
   end
 
   def for_user
-    render json: {auths: Auth.for_user(params[:id])}
+    render json: {auths: Auth.ips_for(params[:id])}
   end
   
   private
