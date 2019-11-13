@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
   before_action :authorized, only: [:update, :update_password]
+  def index
+    users = User.all
+    render json: users
+  end
   def show
     user = User.find(params[:id])
     render json: user.to_json(except: :password_digest)
