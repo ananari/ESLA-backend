@@ -40,6 +40,9 @@ class LanguagesController < ApplicationController
       }
     }
   end
+
+  def language_params
+  end
 end
 
 
