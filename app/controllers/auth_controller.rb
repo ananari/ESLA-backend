@@ -5,8 +5,12 @@ class AuthController < ApplicationController
   end
   def create
     @user = User.find_by(username: user_login_params[:username])
+    auths = Auth.ips_for(@user.id)
     if @user && @user.authenticate(user_login_params[:password])
-      Auth.create(user_id: @user.id, ip: request.remote_ip)
+      if auths.length > 2 && !auths_include?(request.remote_ip)
+        AuthMailer.with(user: @user).new_ip_email.deliver_later
+      end
+      auth = Auth.create(user_id: @user.id, ip: request.remote_ip)
       token = encode_token({ user_id: @user.id })
       render json: { user: @user, jwt: token }, status: :accepted
     else

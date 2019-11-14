@@ -40,7 +40,7 @@ class DatapointsController < ApplicationController
     valhash = {}
     geopoints = datapoints.map do |dp|
       colour = match_values_to_colours(vals, dp.value)
-      valhash[colour] = dp.value
+      valhash[dp.value] = colour
       language = Language.find(dp.language_id)
       {
         latitude: language.latitude,
@@ -60,7 +60,7 @@ class DatapointsController < ApplicationController
   end
 
   def match_values_to_colours(vals, val)
-    colours = ["purple", "blue", "cyan", "green", "yellow", "orange", "red", "black"]
+    colours = ["purple", "blue", "cyan", "green", "yellow", "orange", "red", "pink", "black"]
     index = vals.find_index(val)
     colours[index]
   end
