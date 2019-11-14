@@ -7,6 +7,7 @@ class DatapointsController < ApplicationController
 
   def for_feature
     datapoints = Datapoint.all.select {|dp| "#{dp.feature_id}" == params[:id]}
+    datapoints = datapoints.sort_by{|dp| dp.language.name}
     render json: datapoints.to_json(include: [:language])
   end
 
@@ -31,6 +32,7 @@ class DatapointsController < ApplicationController
 
   def for_language
     datapoints = Datapoint.all.select {|dp| "#{dp.language_id}" == params[:id]}
+    datapoints = datapoints.sort_by{|dp| dp.feature.name}
     render json: datapoints.to_json(include: [:feature])
   end
 

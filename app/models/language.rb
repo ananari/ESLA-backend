@@ -1,6 +1,6 @@
 class Language < ApplicationRecord
   has_many :datapoints
-  has_many :languages, through: :datapoints
+  has_many :features, through: :datapoints
   validates :name, presence: true
   validates :name, uniqueness: true
   validates :latitude, presence: true

@@ -1,6 +1,7 @@
 class FeaturesController < ApplicationController
   def index
     features = Feature.all
+    features = features.sort_by{|feat| feat.name}
     render json: features
   end
 

@@ -1,6 +1,7 @@
 class LanguagesController < ApplicationController
   def index
     languages = Language.all
+    languages = languages.sort_by{|lang| lang.name}
     render json: languages
   end
 
